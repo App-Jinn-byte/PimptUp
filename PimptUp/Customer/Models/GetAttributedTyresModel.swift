@@ -8,9 +8,9 @@
 
 import Foundation
 struct GetTyresWithAttributesResponse: Codable{
-    let TyreList: [TyresList]
+    let TyresList: [TyreList]
 }
-struct TyresList: Codable {
+struct TyreList: Codable {
     let TyreAttributeId: Int?
     let TyreRange: String?
     let RimSize: String?

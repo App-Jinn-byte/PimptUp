@@ -43,11 +43,10 @@ class QuoteDetailViewController: UIViewController {
     func setFields(){
         if let image = quoteDetail?.ImagePath{
             
-            
+           
             let urlString = image.addingPercentEncoding( withAllowedCharacters: .urlQueryAllowed)
-            let image = URL(string: urlString!)
-            
-            productIV.kf.setImage(with: image)
+            let url = URL(string: urlString!)
+            productIV.kf.setImage(with: url)
         }
         else {
             self.productIV.image = nil

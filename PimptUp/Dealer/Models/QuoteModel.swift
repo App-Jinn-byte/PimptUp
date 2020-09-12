@@ -9,7 +9,7 @@
 import Foundation
 struct QuoteRequestResponse: Codable {
     let RequestQuoteId: Int?
-    let RequestId:String?
+    let RequestId:Int?
     let Quote:Double?
-    let QoutedBy:String?
+    let QoutedBy:Int?
 }

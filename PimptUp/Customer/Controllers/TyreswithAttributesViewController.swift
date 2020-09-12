@@ -20,14 +20,16 @@ class TyreswithAttributesViewController: UIViewController {
     var defaults  = UserDefaults.standard
     var userId: Int?
     
-    var tyresList: [TyresList] = []
+    var tyresList: [TyreList] = []
+    var tyresList1: [TyreListCustomer] = []
     var getIds: [Int]?
+    @IBOutlet weak var noDataFound: UIView!
     var dealerTyresList: [DealerTyresList] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         print(getIds)
-        if (userTypeId == 2){
-        addTyreBtn.layer.cornerRadius = addTyreBtn.frame.height/5
+        if (Constants.userTypeId == 2){
+        addTyreBtn.layer.cornerRadius = addTyreBtn.frame.height/4
                addTyreBtn.clipsToBounds = true
         }
         userTypeId = defaults.integer(forKey: "UserTypeId")
@@ -41,43 +43,52 @@ class TyreswithAttributesViewController: UIViewController {
         }
         else{
             addTyreBtn.isHidden = true
-            APIRequests.getTyresOfDealer(id: userId!, completion: APIRequestForGetTyresWithAttributes)
+            APIRequests.getTyresOfDealer(id: userId!, completion: APIRequestForGetTyresWithAttributesDealer)
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
-         APIRequests.getTyresOfDealer(id: userId!, completion: APIRequestForGetTyresWithAttributes)
-    }
+        if(userTypeId == 2){
+         APIRequests.getTyresOfDealer(id: userId!, completion: APIRequestForGetTyresWithAttributesDealer)
     
+        }
+    }
     @IBAction func addTyreButton(_ sender: Any) {
         
     }
     
-    fileprivate func APIRequestForGetTyresWithAttributes(response:Any?,error:Error?){
+    fileprivate func APIRequestForGetTyresWithAttributesDealer(response:Any?,error:Error?){
         
         if APIResponse.isValidResponse(viewController: self, response: response, error: error){
             
             
-            
+            //let data = try JSONSerialization.data(withJSONObject: response!, options: .prettyPrinted)
             //    let data = try! JSONSerialization.data(withJSONObject: response, options: .prettyPrinted)
             let decoder = JSONDecoder()
             do {
                 print("testing break point")
 //                let data = try JSONSerialization.data(withJSONObject: response, options: .fragmentsAllowed)
                 let data = try JSONSerialization.data(withJSONObject: response!, options: .prettyPrinted)
-                               print(data)
-                               print(data,"Printing the data here.")
+                
+                
+                if let httpResponse = response as? HTTPURLResponse {
+                    print("statusCode: \(httpResponse.statusCode)")
+                }
+                
+                print(data)
+                print(data,"Printing the data here.")
 
                 
                 if (userTypeId == 3){
                 let tyres = try decoder.decode(GetTyresWithAttributesResponse.self, from: data)
-                tyresList = tyres.TyreList
+                tyresList = tyres.TyresList
                 print(tyresList)
                 }
                 else{
                     let tyres = try decoder.decode(DealerTyresModelResponse.self, from: data)
                     dealerTyresList = tyres.TyresModels
                     if (dealerTyresList.count == 0){
+                        noDataFound.isHidden = true
                         tyresListTV.isHidden = true
                         addTyreBtn.isHidden = false
                     }
@@ -94,16 +105,66 @@ class TyreswithAttributesViewController: UIViewController {
         }
         else{
             
-            Constants.Alert(title: "Login Error", message: "Sorry no record found", controller: self)
+            Constants.Alert(title: "Error", message: "Sorry no record found", controller: self)
         }
     }
+    
+     fileprivate func APIRequestForGetTyresWithAttributes(response:Any?,error:Error?){
+            
+            if APIResponse.isValidResponse(viewController: self, response: response, error: error){
+                
+                
+                //let data = try JSONSerialization.data(withJSONObject: response!, options: .prettyPrinted)
+                //    let data = try! JSONSerialization.data(withJSONObject: response, options: .prettyPrinted)
+                let decoder = JSONDecoder()
+                do {
+                    print("testing break point")
+    //                let data = try JSONSerialization.data(withJSONObject: response, options: .fragmentsAllowed)
+//                    let data = try JSONSerialization.data(withJSONObject: response!, options: [])
+                    let data = try JSONSerialization.data(withJSONObject: response, options: .prettyPrinted)
+                    
+                    if let httpResponse = response as? HTTPURLResponse {
+                        print("statusCode: \(httpResponse.statusCode)")
+                    }
+                
+                    print(data)
+                    print(data,"Printing the data here.")
+
+                    
+                    if (userTypeId == 3){
+                    let tyres = try decoder.decode(GetTyresListForCustomer.self, from: data)
+                    tyresList1 = tyres.TyreList
+                    print(tyresList1)
+                        if (tyresList1.count == 0 ){
+                            self.tyresListTV.isHidden = true
+                            return
+                        }
+                        else{
+                            self.tyresListTV.isHidden = false
+                        }
+                    self.tyresListTV.reloadData()
+                    }
+                  
+                    
+                } catch {
+                    
+                    print("error trying to convert data to JSON")
+                    Constants.Alert(title: "Error", message: Constants.statusMessage , controller: self)
+                }
+                
+            }
+            else{
+                
+                Constants.Alert(title: "Error", message: "Sorry no record found", controller: self)
+            }
+        }
 
 }
 extension TyreswithAttributesViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if(userTypeId == 3)
         {
-        return tyresList.count
+        return tyresList1.count
         }
         else{
             return dealerTyresList.count
@@ -114,7 +175,7 @@ extension TyreswithAttributesViewController: UITableViewDelegate, UITableViewDat
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TyresList") as! TyresWithAttributesTableViewCell
         if(userTypeId == 3){
-        cell.cellObj = tyresList[indexPath.row]
+        cell.cellObj = tyresList1[indexPath.row]
         cell.setData()
         }
         else{

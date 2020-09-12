@@ -15,8 +15,12 @@ typealias completeIt = (_ name: String?) -> Void
 
 class APIRequests {
     
+// live server
+//    public static let BASE_URL = "https://pimptup.com/api/Mobile/"
     
+    // test server
     public static let BASE_URL = "http://pimptup.jinnbytedev.com/api/Mobile/"
+        
     
     public static func Login(parameters: Parameters, completion: @escaping RequestCompletion) {
         POSTRequest(url: BASE_URL+"Login", parameters: parameters, completion: completion)

@@ -47,7 +47,7 @@ class PopUpViewController: UIViewController {
         }
         
         
-                let param:[String:Any] = ["RequestId":id,"Quote":value,"QoutedBy": Constants.userId]
+                let param:[String:Any] = ["RequestId":id!,"Quote":value!,"QoutedBy": Constants.userId]
         
         
         

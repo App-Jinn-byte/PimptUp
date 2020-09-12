@@ -23,7 +23,10 @@ class Constants{
     public static var loginErrorMessage = "Invalid username or password!"
     public static var forgotPasswordErrorMessage = "Invalid username"
     public static var blogimage = URL(string: "")
-    public static var ImagePath  = "http://pimptup.tasvir.pk/"
+    
+    //public static var ImagePath  = "https://pimptup.com/"
+    
+    public static var ImagePath  = "http://testtasvir.jinnbytedev.com/"
     
     public static var cars: [Vehicles] = []
     

@@ -43,14 +43,17 @@ class HomeViewController:  UIViewController{
         pagerViewCV.delegate = self
         categoriesCollectionView.delegate = self
         Constants.getUserVehicles()
-        
+        selectedIndex = 0
         getBanners()
         
+        
+    }
+    override func viewWillAppear(_ animated: Bool) {
         DispatchQueue.main.async {
+//            self.counter = 0
             self.timer = Timer.scheduledTimer(timeInterval: 4.0, target: self, selector: #selector(self.changeImage), userInfo: nil, repeats: true)
         }
     }
-    
     @IBAction func logOutBtn(_ sender: Any) {
         if Reachability.isConnectedToInternet(){
             Constants.Alert1(title: "Logout", message: "Are You sure to Logout", controller: self, action: handlersuccess())
@@ -226,6 +229,7 @@ class HomeViewController:  UIViewController{
                 
                 let banners = try decoder.decode(BannersImagesModelResponse.self, from: data)
                 let list = banners.bannersList
+                imgArray.removeAll()
                 for images in list{
                     let imagePath = images.ImagePath
                     var image1 = String(imagePath?.dropFirst(3) ?? "")
@@ -287,16 +291,19 @@ class HomeViewController:  UIViewController{
             Constants.Alert(title: "JSON Error ", message: Constants.loginErrorMessage, controller: self)
         }
     }
-    
+    //MARK:- Image scrolling function / pager view function
     @objc func changeImage(){
         if counter < imgArray.count {
             let index = IndexPath.init(item: counter, section: 0)
+            print(index,"Printing the index in pager view function counter < imagesArray.count")
             self.pagerViewCV.scrollToItem(at: index, at: .centeredHorizontally, animated: true)
             pageControl.currentPage = counter
             counter += 1
         } else {
             counter = 0
+//            self.pagerViewCV.reloadData()
             let index = IndexPath.init(item: counter, section: 0)
+            print(index,"Printing the index in pager view function else condition")
             self.pagerViewCV.scrollToItem(at: index, at: .centeredHorizontally, animated: false)
             pageControl.currentPage = counter
             counter = 1
@@ -348,6 +355,10 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         else{
             return productsArrayWithCatId.count
         }
+    }
+    //MARK:-Checking that where should be the counter of pager view
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        counter = indexPath.row
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

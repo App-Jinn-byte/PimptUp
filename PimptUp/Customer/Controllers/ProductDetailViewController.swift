@@ -26,6 +26,7 @@ class ProductDetailViewController: UIViewController {
     @IBOutlet weak var dealerAddress: UILabel!
     @IBOutlet weak var productDescription: UILabel!
     
+    @IBOutlet weak var contactDealerBtn: UIButton!
     @IBOutlet weak var descriptionBgView: UIView!
     @IBOutlet weak var informationBgView: UIView!
     @IBOutlet weak var productModel: UILabel!
@@ -35,7 +36,11 @@ class ProductDetailViewController: UIViewController {
     var productDetailObj: GetProductsModelResponse?
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        if(Constants.userTypeId == 3 || Constants.userTypeId == 4 || Constants.userTypeId == 5){
+            contactDealerBtn.layer.cornerRadius = contactDealerBtn.frame.height/8
+            contactDealerBtn.clipsToBounds = true
+        }
+            
         informationBgView.dropShadow()
         informationBgView.layer.cornerRadius = informationBgView.frame.width/20
         //cellBgView.clipsToBounds = true

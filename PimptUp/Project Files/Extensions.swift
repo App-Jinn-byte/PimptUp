@@ -180,7 +180,7 @@ extension UIView {
         
             layer.masksToBounds = false
             layer.shadowColor = UIColor.black.cgColor
-            layer.shadowOpacity = 0.3
+            layer.shadowOpacity = 0.2
             layer.shadowOffset = CGSize(width: 3, height: 3)
             layer.shadowRadius = 3
             
@@ -195,5 +195,23 @@ extension UIView {
         self.layer.shadowColor = UIColor.black.cgColor
         self.layer.masksToBounds = false
         self.layer.cornerRadius = cornerRadius
+    }
+}
+extension UIImage {
+    func resized(withPercentage percentage: CGFloat, isOpaque: Bool = true) -> UIImage? {
+        let canvas = CGSize(width: size.width * percentage, height: size.height * percentage)
+        let format = imageRendererFormat
+        format.opaque = isOpaque
+        return UIGraphicsImageRenderer(size: canvas, format: format).image {
+            _ in draw(in: CGRect(origin: .zero, size: canvas))
+        }
+    }
+    func resized(toWidth width: CGFloat, isOpaque: Bool = true) -> UIImage? {
+        let canvas = CGSize(width: width, height: CGFloat(ceil(width/size.width * size.height)))
+        let format = imageRendererFormat
+        format.opaque = isOpaque
+        return UIGraphicsImageRenderer(size: canvas, format: format).image {
+            _ in draw(in: CGRect(origin: .zero, size: canvas))
+        }
     }
 }

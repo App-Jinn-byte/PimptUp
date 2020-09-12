@@ -28,8 +28,9 @@ class MyVehiclesTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
        cellBgView.dropShadow()
-        cellBgView.layer.cornerRadius = cellBgView.frame.width/20
-       cellBgView.clipsToBounds = true
+       
+        cellBgView.layer.cornerRadius = cellBgView.frame.width/18
+  
         
         deleteCarBtn.layer.cornerRadius = deleteCarBtn.frame.height/5
         deleteCarBtn.clipsToBounds = true

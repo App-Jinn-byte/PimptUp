@@ -26,6 +26,7 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var emailTF: UITextField!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var categoriesBgView: UIView!
+    @IBOutlet weak var activityIndicatorImage: UIActivityIndicatorView!
     
     @IBOutlet weak var selectCategoriesBtn: UIButton!
     @IBOutlet weak var dealerBgView: UIView!
@@ -190,8 +191,8 @@ class ProfileViewController: UIViewController {
     }
     
     func uploadImage() {
-        
-        let url = "http://pimptup.tasvir.pk/api/Mobile/UploadUserImage?UserId=\(Constants.userId)"
+        activityIndicatorImage.startAnimating()
+        let url = "http://pimptup.jinnbytedev.com/api/Mobile/UploadUserImage?UserId=\(Constants.userId)"
         Alamofire.upload(multipartFormData: { multipartFormData in
             multipartFormData.append(self.imageData!, withName: "Data",fileName: "Data.jpg", mimeType: "Data/jpg")
             //            for (key, value) in parameters {
@@ -221,6 +222,7 @@ class ProfileViewController: UIViewController {
                                 // self.showMessageToUser(title: "Alert", msg: "wrong Detail")
                                 print("errorr else section")
                             }
+                            self.activityIndicatorImage.stopAnimating()
                         }catch let err{
                             debugPrint(err)
                             print("errorr catch seciton")
@@ -260,22 +262,25 @@ class ProfileViewController: UIViewController {
                 self.emailTF.text = userDetail?.Email
                 self.lat = userDetail?.Latitude
                 self.lng = userDetail?.Longitude
-                if (userTypeId == 2){
-                    if (userDetail?.PartsTypeId == 3){
-                        bothRadioBtn.setBackgroundImage(UIImage.init(named: "btn_radio_filled"), for: .normal)
-                        oldRadioBtn.setBackgroundImage(UIImage.init(named: "btn_radio_empty"), for: .normal)
-                        newRadioBtn.setBackgroundImage(UIImage.init(named: "btn_radio_empty"), for: .normal)
-                    }
-                    else if (userDetail?.PartsTypeId == 1){
-                        bothRadioBtn.setBackgroundImage(UIImage.init(named: "btn_radio_empty"), for: .normal)
-                        oldRadioBtn.setBackgroundImage(UIImage.init(named: "btn_radio_filled"), for: .normal)
-                        newRadioBtn.setBackgroundImage(UIImage.init(named: "btn_radio_empty"), for: .normal)
-                    }
-                    
-                }
+//                if (userTypeId == 2){
+//                    if (userDetail?.PartsTypeId == 3){
+//                        bothRadioBtn.setBackgroundImage(UIImage.init(named: "btn_radio_filled"), for: .normal)
+//                        oldRadioBtn.setBackgroundImage(UIImage.init(named: "btn_radio_empty"), for: .normal)
+//                        newRadioBtn.setBackgroundImage(UIImage.init(named: "btn_radio_empty"), for: .normal)
+//                    }
+//                    else if (userDetail?.PartsTypeId == 1){
+//                        bothRadioBtn.setBackgroundImage(UIImage.init(named: "btn_radio_empty"), for: .normal)
+//                        oldRadioBtn.setBackgroundImage(UIImage.init(named: "btn_radio_filled"), for: .normal)
+//                        newRadioBtn.setBackgroundImage(UIImage.init(named: "btn_radio_empty"), for: .normal)
+//                    }
+//                    
+//                }
                 if let imagePath = userDetail?.ImagePath{
-                    var imagePath = imagePath.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-                    let url = URL(string: imagePath!)
+                    let imagePath = imagePath.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+                    var url = URL(string: imagePath!)
+                    if url == nil{
+                        url = URL(string: "https://gulyasimre.hu/wp-content/uploads/2013/10/placeholder_image1.png")
+                    }
                     self.profileUserImageView.kf.setImage(with: url)
                 }
                 categoriesForSpecialist = userDetail?.UserCategories
@@ -495,7 +500,7 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
         
         let image = profileUserImageView.image
         
-        let data = image?.jpegData(compressionQuality: 0.9)
+        let data = image?.jpegData(compressionQuality: 0.3)
         imageData = data
         let uiImage = UIImage(data: data! as Data)
         
@@ -508,6 +513,7 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
             
             let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
             let data = image.pngData()! as NSData
+            //let data = image.jpegData(compressionQuality: 0.3)
             data.write(toFile: localPath!, atomically: true)
             
             let photoURL = URL.init(fileURLWithPath: localPath!)//NSURL(fileURLWithPath: localPath!)

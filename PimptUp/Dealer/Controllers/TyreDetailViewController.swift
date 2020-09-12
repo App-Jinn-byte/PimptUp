@@ -55,9 +55,8 @@ class TyreDetailViewController: UIViewController {
         tyreAspectRatioTF.text = tyreObjDealer?.AspectRatio
         if let image = tyreObjDealer?.ImagePath{
             
-            var image1 = String(image.dropFirst(3))
-            image1 = "\(Constants.ImagePath)"+image1
-            let urlString = image1.addingPercentEncoding( withAllowedCharacters: .urlQueryAllowed)
+           
+            let urlString = image.addingPercentEncoding( withAllowedCharacters: .urlQueryAllowed)
             let image = URL(string: urlString!)
              tyreIV.kf.setImage(with: image)
         }

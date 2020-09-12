@@ -16,6 +16,7 @@
 		384609D824F68AC7009870C2 /* RightTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 384609D024F68AC7009870C2 /* RightTableViewCell.xib */; };
 		384609D924F68AC7009870C2 /* ChattingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384609D124F68AC7009870C2 /* ChattingHelper.swift */; };
 		384609DA24F68AC7009870C2 /* InboxTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384609D224F68AC7009870C2 /* InboxTableViewCell.swift */; };
+		3871C8BF250A6ADD0039C161 /* GetTyresListForCustomer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3871C8BE250A6ADD0039C161 /* GetTyresListForCustomer.swift */; };
 		388376CD24EE9D2700216AA1 /* DealerTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 388376CC24EE9D2700216AA1 /* DealerTabBarViewController.swift */; };
 		388376CF24EE9D5B00216AA1 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 388376CE24EE9D5B00216AA1 /* TabBarViewController.swift */; };
 		388376D124EEABF500216AA1 /* SpecialistTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 388376D024EEABF500216AA1 /* SpecialistTabBarViewController.swift */; };
@@ -146,6 +147,7 @@
 		384609D124F68AC7009870C2 /* ChattingHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChattingHelper.swift; path = "../../../call-the-guy/Call The Guy/Call The Guy/Chatting/ChattingHelper.swift"; sourceTree = "<group>"; };
 		384609D224F68AC7009870C2 /* InboxTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InboxTableViewCell.swift; path = "../../../call-the-guy/Call The Guy/Call The Guy/Chatting/InboxTableViewCell.swift"; sourceTree = "<group>"; };
 		38561EE824F80DC600015358 /* PimptUp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PimptUp.entitlements; sourceTree = "<group>"; };
+		3871C8BE250A6ADD0039C161 /* GetTyresListForCustomer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTyresListForCustomer.swift; sourceTree = "<group>"; };
 		388376CC24EE9D2700216AA1 /* DealerTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DealerTabBarViewController.swift; sourceTree = "<group>"; };
 		388376CE24EE9D5B00216AA1 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		388376D024EEABF500216AA1 /* SpecialistTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialistTabBarViewController.swift; sourceTree = "<group>"; };
@@ -399,7 +401,6 @@
 				8F6EE88824064C3F00D32C52 /* ProfileViewController.swift */,
 				8F582E7824390FEA0037A116 /* RequestsTableViewCell.swift */,
 				8FD7E7FC2432C20D00ED842A /* MyVehiclesTableViewCell.swift */,
-				8FFFBA932433CD9D0056D73C /* AddCarViewController.swift */,
 				8FB26A552403FD9C000AD273 /* RequestAPartViewController.swift */,
 				8F60617B24386B4800BB1C3A /* RequestsListViewController.swift */,
 				8F582E7C24393FE00037A116 /* QuotesListViewController.swift */,
@@ -493,6 +494,7 @@
 			isa = PBXGroup;
 			children = (
 				38561EE824F80DC600015358 /* PimptUp.entitlements */,
+				8FFFBA932433CD9D0056D73C /* AddCarViewController.swift */,
 				384609CA24F68A4E009870C2 /* Chatting */,
 				8FA38DD924D07CDA00464901 /* Specialist */,
 				8F59CB3424B373F30033E5E0 /* Dealer */,
@@ -575,6 +577,7 @@
 				8FD0D99524890C8600B2E702 /* FIndSpecialistsModel.swift */,
 				8FD5EBE2248C1DE400C5E487 /* TyreManufacturersModel.swift */,
 				8F83EC1D24A296640064C29E /* GetQuotedListsModel.swift */,
+				3871C8BE250A6ADD0039C161 /* GetTyresListForCustomer.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -950,6 +953,7 @@
 				8FFFBAA1243552EC0056D73C /* MapsViewController.swift in Sources */,
 				384609D324F68AC7009870C2 /* InboxViewController.swift in Sources */,
 				8FB8DED424ED39D3008DE888 /* SelectCategoriesViewController.swift in Sources */,
+				3871C8BF250A6ADD0039C161 /* GetTyresListForCustomer.swift in Sources */,
 				8F8368C92401D9480031E489 /* ResetPasswordModel.swift in Sources */,
 				8F05197A23FFE05A00F76143 /* APIRequests.swift in Sources */,
 				8F05197223FF212600F76143 /* ResetPasswordViewController.swift in Sources */,
@@ -1149,7 +1153,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.2;
+				MARKETING_VERSION = 2.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jinnbyte.pimptUp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1173,7 +1177,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.2;
+				MARKETING_VERSION = 2.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jinnbyte.pimptUp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

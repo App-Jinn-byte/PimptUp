@@ -60,7 +60,7 @@ class RequestsViewController: UIViewController {
             startingDateTF.text = ""
             endDateTF.text = ""
             isUnQuoted = true
-            if (userTypeId == 3){
+            if (userTypeId == 3 || userTypeId == 5 || userTypeId == 4){
                 APIRequests.getUnQuotedRequests(completion: APIRequestCompletedForGetQuotedList, id: userId! , from: startdate , to : endDate )
                 
             }
@@ -69,7 +69,7 @@ class RequestsViewController: UIViewController {
             }
         }
         else{
-            if(userTypeId == 3 || isDealer == true){
+            if(userTypeId == 3 || isDealer == true || userTypeId == 4 || userTypeId == 5){
             APIRequests.getQuotedRequests(completion: APIRequestCompletedForGetQuotedList, id: userId! , from: startdate , to : endDate )
             }
             else{
@@ -180,7 +180,7 @@ class RequestsViewController: UIViewController {
             
             APIRequests.getBanners( completion: APIRequestCompletedForBanners)
             
-            if (userTypeId == 3 || isDealer == true){
+            if (userTypeId == 3 || isDealer == true ){
              APIRequests.getQuotedRequests(completion: APIRequestCompletedForGetQuotedList, id: Constants.userId , from: startdate , to : endDate )
             }
             else{

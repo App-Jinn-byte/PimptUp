@@ -481,7 +481,7 @@ extension PostAPartViewController: UIPickerViewDelegate, UIPickerViewDataSource{
         
         let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.done, target: self, action: #selector(self.donePicker))
         let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.donePicker))
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.cancelButton))
         
         toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
         toolBar.isUserInteractionEnabled = true
@@ -754,7 +754,7 @@ extension PostAPartViewController: UIImagePickerControllerDelegate, UINavigation
     
     func addImage(){
         let imgData = self.partIV.image?.jpegData(compressionQuality: 0.2)
-        let url = "http://pimptup.tasvir.pk/api/Mobile/UploadPartImage"
+        let url = "http://pimptup.jinnbytedev.com/api/Mobile/UploadPartImage"
         Alamofire.upload(multipartFormData: { multipartFormData in
             multipartFormData.append(imgData!, withName: "image",fileName: "image.jpg", mimeType: "image/jpg")
             let parameters: [String:Any] = ["PartId": self.imageUploadCode! ]

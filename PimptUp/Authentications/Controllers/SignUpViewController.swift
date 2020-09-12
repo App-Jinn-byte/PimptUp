@@ -507,7 +507,7 @@ extension SignUpViewController: UIImagePickerControllerDelegate, UINavigationCon
     
     func uploadImage(userId: Int ) {
         
-        let url = "http://pimptup.tasvir.pk/api/Mobile/UploadUserImage?UserId=\(userId)"
+        let url = "http://pimptup.jinnbytedev.com/api/Mobile/UploadUserImage?UserId=\(userId)"
         Alamofire.upload(multipartFormData: { multipartFormData in
             multipartFormData.append(self.imageData!, withName: "Data",fileName: "Data.jpg", mimeType: "Data/jpg")
             //            for (key, value) in parameters {

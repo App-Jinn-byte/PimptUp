@@ -48,10 +48,10 @@ class RequestAPartViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        addCarBtn.layer.cornerRadius = addCarBtn.frame.height/5
-        addCarBtn.clipsToBounds = true
-        
+        if(Constants.userTypeId == 3){
+            addCarBtn.layer.cornerRadius = addCarBtn.frame.height/5
+            addCarBtn.clipsToBounds = true
+        }
         userTypeId = defaults.integer(forKey: "UserTypeId")
         
         for i in 1950...2020{
@@ -77,24 +77,29 @@ class RequestAPartViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         setPickerView()
         DispatchQueue.main.async {
-                   Constants.getUserVehicles()
-              }
-        if(Constants.cars.count != 0){
-                          self.addCarView.isHidden = true
-                   myVehicles = Constants.cars
-                      }
-                      else{
-                          self.addCarView.isHidden = false
-                      }
+            Constants.getUserVehicles()
+        }
+        if(userTypeId == 3){
+            if(Constants.cars.count != 0){
+                
+                self.addCarView.isHidden = true
+                myVehicles = Constants.cars
+            }
+            else{
+                self.addCarView.isHidden = false
+            }
+        }
     }
     override func viewDidAppear(_ animated: Bool) {
-         if(Constants.cars.count != 0){
-                   self.addCarView.isHidden = true
-            myVehicles = Constants.cars
-               }
-               else{
-                   self.addCarView.isHidden = false
-               }
+        if(userTypeId == 3){
+            if(Constants.cars.count != 0){
+                self.addCarView.isHidden = true
+                myVehicles = Constants.cars
+            }
+            else{
+                self.addCarView.isHidden = false
+            }
+        }
     }
     @IBAction func newRadioBtn(_ sender: Any) {
         if newRadioBtn.backgroundImage(for: .normal) == UIImage.init(named: "btn_radio_empty"){
@@ -193,7 +198,7 @@ class RequestAPartViewController: UIViewController {
     }
     func addPart(){
         let carName = carNameTF.text
-        if(carName == "" || isImageAttached == false ){
+        if(carName == "" || isImageAttached == false || self.yearTF.text == ""){
             Constants.Alert(title: "Input error ", message: "All fields are required", controller: self)
             return
         }
@@ -213,22 +218,24 @@ class RequestAPartViewController: UIViewController {
                 "ProductTypeId": 1 ,
                 "CreatedBy": Constants.userId,
                 "PartNumber": partTypeId,
-                "UserVehcileId": vehicleId!
+                "UserVehcileId": vehicleId!,
+                "UserVehicleYear": self.yearTF.text!
             ]
         }
         else {
             
             parameters = [
-                "Name": carNameTF.text,
-                "Description": descriptionTF.text,
+                "Name": carNameTF.text!,
+                "Description": descriptionTF.text!,
                 "ProductTypeId": partTypeId,
                 "CreatedBy": Constants.userId,
-                "VinNumber": winnoTF.text,
-                "VehicleName": brandTF.text,
+                "VinNumber": winnoTF.text!,
+                "VehicleName": brandTF.text!,
                 "ModelId": carModelId!,
                 "BrandId": carBrandId!,
-                "Year": yearTF.text,
-                "UserId": Constants.userId
+                "Year": yearTF.text!,
+                "UserId": Constants.userId,
+                "UserVehicleYear": self.yearTF.text!
             ]
             
         }
@@ -310,7 +317,9 @@ class RequestAPartViewController: UIViewController {
     func handler() -> (UIAlertAction) -> () {
         return { action in
             self.loadView()
+            if(self.userTypeId == 3){
             self.addCarView.isHidden = true
+            }
         }
     }
 }
@@ -495,7 +504,7 @@ extension RequestAPartViewController: UIImagePickerControllerDelegate, UINavigat
     
     func addImage(){
         let imgData = self.partImageView.image?.jpegData(compressionQuality: 0.2)
-        let url = "http://pimptup.tasvir.pk/api/Mobile/UploadPartRequestImage?RequestId=\(self.imageUploadCode!)"
+        let url = "http://pimptup.jinnbytedev.com/api/Mobile/UploadPartRequestImage?RequestId=\(self.imageUploadCode!)"
         Alamofire.upload(multipartFormData: { multipartFormData in
             multipartFormData.append(imgData!, withName: "image",fileName: "image.jpg", mimeType: "image/jpg")
             //            for (key, value) in parameters {

@@ -13,7 +13,7 @@ protocol QuoteDetail {
     func onClickViewQuotes(obj:quotedList)
 }
 class QuotedNonQuotedTableViewCell: UITableViewCell {
-
+    
     @IBOutlet weak var detailsBtn: UIButton!
     @IBOutlet weak var bgView: UIView!
     @IBOutlet weak var idLabel: UILabel!
@@ -35,13 +35,13 @@ class QuotedNonQuotedTableViewCell: UITableViewCell {
         detailsBtn.layer.cornerRadius = detailsBtn.frame.height/5
         detailsBtn.clipsToBounds = true
         if(Constants.userTypeId == 2){
-        quoteItBtn.layer.cornerRadius = quoteItBtn.frame.height/5
-        quoteItBtn.clipsToBounds = true
+            quoteItBtn.layer.cornerRadius = quoteItBtn.frame.height/5
+            quoteItBtn.clipsToBounds = true
         }
         if(Constants.userTypeId == 3){
-               viewQuotesBtn.layer.cornerRadius = viewQuotesBtn.frame.height/5
-               viewQuotesBtn.clipsToBounds = true
-               }
+            viewQuotesBtn.layer.cornerRadius = viewQuotesBtn.frame.height/5
+            viewQuotesBtn.clipsToBounds = true
+        }
         
     }
     
@@ -52,7 +52,7 @@ class QuotedNonQuotedTableViewCell: UITableViewCell {
         else{
             self.idLabel.text = "";
         }
-
+        
         self.nameLabel.text = cellObj?.Name
         self.descriptionLabel.text = cellObj?.Description
         self.productTypeLabel.text = cellObj?.ProductTypeName
@@ -62,14 +62,20 @@ class QuotedNonQuotedTableViewCell: UITableViewCell {
         if((cellObj?.Quote)! != 0){
             quoteItBtn.isHidden = true
             
-            trailingViewDeatilBtn.constant = 140
+            if(Constants.userTypeId != 4 || Constants.userTypeId != 5){
+                           trailingViewDeatilBtn.constant  = 140
+                       }
         }
         else{
-            viewQuotesBtn.isHidden = true
-            trailingViewDeatilBtn.constant  = 140
+            if(Constants.userTypeId == 3){
+                viewQuotesBtn.isHidden = true
+            }
+            if(Constants.userTypeId != 4 && Constants.userTypeId != 5){
+                trailingViewDeatilBtn.constant  = 140
+            }
             if (Constants.userTypeId == 2){
-             quoteItBtn.isHidden = false
-            trailingViewDeatilBtn.constant = 50
+                quoteItBtn.isHidden = false
+                trailingViewDeatilBtn.constant = 50
             }
         }
     }

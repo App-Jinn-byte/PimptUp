@@ -25,7 +25,7 @@ class TyresWithAttributesTableViewCell: UITableViewCell {
     @IBOutlet weak var tyreIV: UIImageView!
     @IBOutlet weak var cellBg: UIView!
     
-    var cellObj: TyresList?
+    var cellObj: TyreListCustomer?
     var cellObjDealer: DealerTyresList?
     
     var delegate: TyreDetailProtocol?
@@ -44,30 +44,29 @@ class TyresWithAttributesTableViewCell: UITableViewCell {
     }
     
     func setData(){
-        self.nameLabel.text = cellObj?.Name
-        self.tyreRangeLabel.text = cellObj?.TyreRange
-        self.rimSizeLabel.text = cellObj?.RimSize
-        
-        if let price = cellObj?.Price {
-            self.priceLabel.text = String(price)
-        }
-        else{
-            self.priceLabel.text = "";
-        }
-        
-        self.manufacturerLabel.text = cellObj?.manufacturer
-        
-        if let image = cellObj?.ImagePath{
-            var image1 = String(image.dropFirst(3))
-            image1 = "\(Constants.ImagePath)"+image1
-            let urlString = image1.addingPercentEncoding( withAllowedCharacters: .urlQueryAllowed)
-            let image = URL(string: urlString!)
-            
-            tyreIV.kf.setImage(with: image)
-        }
-        else {
-            self.tyreIV.image = nil
-        }
+//        self.nameLabel.text = cellObj?.Name
+//        self.tyreRangeLabel.text = cellObj?.TyreRange
+//        self.rimSizeLabel.text = cellObj?.RimSize
+//        
+//        if let price = cellObj?.Price {
+//            self.priceLabel.text = String(price)
+//        }
+//        else{
+//            self.priceLabel.text = "";
+//        }
+//        
+//        self.manufacturerLabel.text = cellObj?.manufacturer
+//        
+//        if let image = cellObj?.ImagePath{
+//            
+//            let urlString = image.addingPercentEncoding( withAllowedCharacters: .urlQueryAllowed)
+//            let image = URL(string: urlString!)
+//            
+//            tyreIV.kf.setImage(with: image)
+//        }
+//        else {
+//            self.tyreIV.image = nil
+//        }
     }
     
     func setDataDealer(){
@@ -85,9 +84,9 @@ class TyresWithAttributesTableViewCell: UITableViewCell {
         self.manufacturerLabel.text = cellObjDealer?.manufacturer
         
         if let image = cellObjDealer?.ImagePath{
-            var image1 = String(image.dropFirst(3))
-            image1 = "\(Constants.ImagePath)"+image1
-            let urlString = image1.addingPercentEncoding( withAllowedCharacters: .urlQueryAllowed)
+           
+           
+            let urlString = image.addingPercentEncoding( withAllowedCharacters: .urlQueryAllowed)
             let image = URL(string: urlString!)
             
             tyreIV.kf.setImage(with: image)
